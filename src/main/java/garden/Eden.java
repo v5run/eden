@@ -1,11 +1,7 @@
-package main;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package garden;
 
 public class Eden {
 
-    @SpringBootApplication
 	public static void main(String[] args) {
 		
 		Block genesisBlock = new Block("Block1", "0");

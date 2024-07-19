@@ -1,11 +1,12 @@
-package main;
+package garden;
+
 import java.util.Date;
 
 public class Block {
 
     public String hash;
     public String prevHash;
-    private String message;
+    private String data;
     private Long time;
 
     public Block(String data, String prevHash){
@@ -16,9 +17,8 @@ public class Block {
     }
 
     private String calcHash(){
-
-        String digest = prevHash + long.toString(time) + data;
-        String newHash = StringUtil.sha256(digest);
+        String digest = prevHash + Long.toString(time) + data;
+        String newHash = StringUtil.sha256(digest); 
         return newHash;
     }
 
