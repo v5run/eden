@@ -22,12 +22,7 @@ public class GardenOfEden {
 		for (Block block : garden) {
             System.out.println(block);
         }
-		
-		if (isChainValid() == true){
-			System.out.println("Chain is valid!");
-		}
-		else{System.out.println("Chain is not valid!");}
-
+		isChainValid();
 	}
 
 	public static Boolean isChainValid(){
@@ -41,7 +36,12 @@ public class GardenOfEden {
 			if (!((current.prevHash).equals(previous.hash))){
 				return false;
 			}
+			if (!((current.hash).equals(current.calcHash()))){
+				System.out.println("Current Hashes not equal");			
+				return false;
+			}
 		}
+		System.out.println("Chain is valid!");
 		return true;
 	}
 }

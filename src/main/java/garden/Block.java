@@ -16,7 +16,7 @@ public class Block {
         this.hash = calcHash();
     }
 
-    private String calcHash(){
+    public String calcHash(){
         String digest = prevHash + Long.toString(time) + data;
         String newHash = StringUtil.sha256(digest); 
         return newHash;
