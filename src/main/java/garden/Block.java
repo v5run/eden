@@ -22,4 +22,14 @@ public class Block {
         return newHash;
     }
 
+    @Override
+    public String toString() {
+        return "Block {" +
+                "hash='" + hash + '\'' +
+                ", previousHash='" + prevHash + '\'' +
+                ", data='" + data + '\'' +
+                ", timeStamp=" + time +
+                '}' + "\n";
+    }
+
 }
