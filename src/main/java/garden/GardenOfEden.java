@@ -1,36 +1,35 @@
 package garden;
 import java.util.*;
+import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 
 public class GardenOfEden {
 
 	public static ArrayList<Block> garden = new ArrayList<Block>(); // blockchain -> "Garden of Eden"
-	public static int req = 7; // requirement/difficulty of finding the correct hash
+	public static int req = 7; // requirement/difficulty of finding the correct hash\
+
+	public static Wallet walletA;
+	public static Wallet walletB;
 
 	public static void main(String[] args) {
-		
-		Block genesisBlock = new Block("Block1", "0");
-		//System.out.println("Hash for block 1 : " + genesisBlock.hash);
-		garden.add(genesisBlock);
-		System.out.println("Trying to Mine block 1... ");
-		garden.get(0).mineBlock(req);
-		
-		Block secondBlock = new Block("Block2",genesisBlock.hash);
-		//System.out.println("Hash for block 2 : " + secondBlock.hash);
-		garden.add(secondBlock);
-		System.out.println("Trying to Mine block 2... ");
-		garden.get(1).mineBlock(req);
-		
-		Block thirdBlock = new Block("Block3",secondBlock.hash);
-		//System.out.println("Hash for block 3 : " + thirdBlock.hash);
-		garden.add(thirdBlock);
-		System.out.println("Trying to Mine block 3... ");
-		garden.get(2).mineBlock(req);
+		Security.addProvider(new BouncyCastleProvider());
 
-		isChainValid();
+		walletA = new Wallet();
+		walletB = new Wallet();
 
-		for (Block block : garden) {
-            System.out.println(block);
-        }
+		System.out.println("Private and public keys:");
+		System.out.println(StringUtil.getStringFromKey(walletA.privateKey));
+		System.out.println(StringUtil.getStringFromKey(walletA.publicKey));
+
+		//Testing transactions between wallets
+
+		Transaction testTrans = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
+		testTrans.generateSignature(walletA.privateKey);
+
+		//Verify the signature works and verify it from the public key
+		System.out.println("Is signature verified?");
+		System.out.println(testTrans.verifySignature());
 	}
 
 	public static Boolean isChainValid(){
