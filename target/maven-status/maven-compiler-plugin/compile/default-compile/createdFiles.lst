@@ -1,4 +1,5 @@
 garden/Block.class
+garden/Transaction.class
 garden/Wallet.class
 garden/StringUtil.class
 garden/GardenOfEden.class
