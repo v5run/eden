@@ -11,6 +11,7 @@ public class Wallet {
     public PrivateKey privateKey;
     public PublicKey publicKey;
 
+	// wallet balance = sum of UTXOs
     public Wallet() {
         generateKeyPair();
     }

@@ -12,6 +12,8 @@ public class GardenOfEden {
 	public static Wallet walletA;
 	public static Wallet walletB;
 
+	public static HashMap<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>();
+
 	public static void main(String[] args) {
 		Security.addProvider(new BouncyCastleProvider());
 
