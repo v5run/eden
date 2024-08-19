@@ -79,7 +79,7 @@ public class Transaction {
 		float total = 0;
 		for(TransactionInput i : inputs) {
 			if(i.UTXO == null) continue; //if Transaction can't be found skip it 
-			total += i.UTXO.value;
+			total += i.UTXO.balance;
 		}
 		return total;
 	}
@@ -88,7 +88,7 @@ public class Transaction {
 	public float getOutputsValue() {
 		float total = 0;
 		for(TransactionOutput o : outputs) {
-			total += o.value;
+			total += o.balance;
 		}
 		return total;
 	}

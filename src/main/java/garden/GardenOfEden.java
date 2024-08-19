@@ -14,6 +14,8 @@ public class GardenOfEden {
 
 	public static HashMap<String, TransactionOutput> UTXOs = new HashMap<String, TransactionOutput>();
 
+	public static float minimumTransaction = 0;
+
 	public static void main(String[] args) {
 		Security.addProvider(new BouncyCastleProvider());
 

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.scene.chart.LineChart.SortingPolicy;
+//import javafx.scene.chart.LineChart.SortingPolicy;
+
 
 
 public class Wallet {
@@ -32,8 +33,8 @@ public class Wallet {
 			keyGen.initialize(ecSpec, random);
         	KeyPair keyPair = keyGen.generateKeyPair();
 	    	
-	    	privateKey = keyPair.getPrivate();
-	        publicKey = keyPair.getPublic();
+	    	this.privateKey = keyPair.getPrivate();
+	        this.publicKey = keyPair.getPublic();
 			
 		} catch(Exception e) {
 			throw new RuntimeException(e);
@@ -47,16 +48,16 @@ public class Wallet {
 		for (Map.Entry<String, TransactionOutput> item: GardenOfEden.UTXOs.entrySet()){
 			TransactionOutput UTXO = item.getValue();
 
-			if (UTXO.isMine(publicKey)){ // if output belongs to me
-				UTXOs.put(UTXO.id,UTXO); // then add it to list of unspent transactions.
-            	total += UTXO.value ; 
+			if (UTXO.isMine(this.publicKey)){ // if output belongs to me
+				UTXOs.put(UTXO.ID,UTXO); // then add it to list of unspent transactions.
+            	total += UTXO.balance ; 
             }
 		}
 		return total;
 	}
 
 	// send funds if the amount is less than or equal to balance. 
-	public Transaction sendFunds(publicKey reciepient, float amount){
+	public Transaction sendFunds(PublicKey reciepient, float amount){
 
 		if (getBalance() < amount){
 			System.out.println("$ Insufficient funds in Wallet ...  Transaction Discarded.");
@@ -69,13 +70,13 @@ public class Wallet {
 		// create a valid input chain by appending as many needed inputs as the amount required. break when total greater than amount
 		for (Map.Entry<String, TransactionOutput> item: GardenOfEden.UTXOs.entrySet()){
 			TransactionOutput UTXO = item.getValue();
-            total += UTXO.value ; 
-            inputs.add(TransactionInput(UTXO.ID));
+            total += UTXO.balance; 
+            inputs.add(new TransactionInput(UTXO.ID));
 			if (total>amount) break;
 		}
 
-		Transaction newTransaction = new Transaction(publicKey, publicKey, amount, inputs);
-		newTransaction.generateSignature(privateKey);
+		Transaction newTransaction = new Transaction(this.publicKey, reciepient, amount, inputs);
+		newTransaction.generateSignature(this.privateKey);
 
 		// inputs are now no longer valid UTXOs therefore need to remove from memory
 		for (TransactionInput input : inputs){
@@ -86,6 +87,17 @@ public class Wallet {
 		transactionHistory.add(newTransaction);
 		return newTransaction;
 
+	}
+
+	public void viewPastTransactions(){
+		System.out.println("$ Past Transactions: ");
+		System.out.println("________________________");
+		for (Transaction i : transactionHistory){
+			System.out.println("id: " + i.transactionID);
+			System.out.println("To: " + i.reciever.toString());
+			System.out.println("Amount: " + Float.toString(i.amount));
+			System.out.println();
+		}
 	}
 
 
