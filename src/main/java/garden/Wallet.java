@@ -93,10 +93,9 @@ public class Wallet {
 		System.out.println("$ Past Transactions: ");
 		System.out.println("________________________");
 		for (Transaction i : transactionHistory){
-			System.out.println("id: " + i.transactionID);
+			System.out.println("Transaction id: " + i.transactionID);
 			System.out.println("To: " + i.reciever.toString());
-			System.out.println("Amount: " + Float.toString(i.amount));
-			System.out.println();
+			System.out.println("Amount: " + Float.toString(i.amount) + "\n");
 		}
 	}
 
