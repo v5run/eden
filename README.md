@@ -1,2 +1,2 @@
 # Garden of 'Eden'
-A stepping stone into Cryptography and Blockchain technology.
+Initiating blockchain technology using BouncyCastle & Google GSON in Java
