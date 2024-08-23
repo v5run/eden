@@ -21,3 +21,23 @@
 		for (Block block : garden) {
             System.out.println(block);
         }
+
+		test 2:
+		_________________________________________________
+		Security.addProvider(new BouncyCastleProvider());
+
+		walletA = new Wallet();
+		walletB = new Wallet();
+
+		System.out.println("Private and public keys:");
+		System.out.println(StringUtil.getStringFromKey(walletA.privateKey));
+		System.out.println(StringUtil.getStringFromKey(walletA.publicKey));
+
+		//Testing transactions between wallets
+
+		Transaction testTrans = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);
+		testTrans.generateSignature(walletA.privateKey);
+
+		//Verify the signature works and verify it from the public key
+		System.out.println("Is signature verified?");
+		System.out.println(testTrans.verifySignature());

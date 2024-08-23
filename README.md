@@ -1,2 +1,2 @@
 # Garden of 'Eden'
-Initiating blockchain technology using BouncyCastle & Google GSON in Java
+Initiating blockchain technology using BouncyCastle in Java
