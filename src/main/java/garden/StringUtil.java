@@ -78,4 +78,8 @@ public class StringUtil {
 		return merkleRoot;
 	}
 
+	public static String getDifficultyString(int difficulty){
+		return new String(new char[difficulty]).replace('\0', '0'); // setting up difficulty req (x amount of 0's to start hash); if diff=5, return='00000'
+	}
+
 }

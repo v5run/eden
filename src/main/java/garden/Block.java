@@ -36,12 +36,13 @@ public class Block {
 
     public void mineBlock(int difficulty) {
         merkleRoot = StringUtil.getMerkleRoot(transactions);
-		String target = new String(new char[difficulty]).replace('\0', '0');
-		while(!hash.substring(0, difficulty).equals(target)) {
+		String req = StringUtil.getDifficultyString(difficulty);
+		while(!hash.substring(0, difficulty).equals(req)) { // make sure first x difficulty = target
 			this.nonce ++;
 			hash = calcHash();
 		}
-		System.out.println("Block Mined! : " + hash + "\nN-once: " + Integer.toString(nonce));
+		//System.out.println("Block Mined! : " + hash + "\nN-once: " + Integer.toString(nonce));
+		System.out.println("Block Mined! : " + hash + "\nN-once: ");
 	}
 
     public boolean addTransaction(Transaction transaction){
