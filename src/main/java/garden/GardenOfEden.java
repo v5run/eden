@@ -2,12 +2,17 @@ package garden;
 import java.util.*;
 import java.security.Security;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 
 public class GardenOfEden {
 
 	public static ArrayList<Block> garden = new ArrayList<Block>(); // blockchain -> "Garden of Eden"
-	public static int req = 7; // requirement/difficulty of finding the correct hash\
+	public static int req = 3; // requirement/difficulty of finding the correct hash\
 
 	public static Wallet walletA;
 	public static Wallet walletB;
@@ -16,6 +21,9 @@ public class GardenOfEden {
 
 	public static float minimumTransaction = 0.1f;
 	public static Transaction genesisTransaction;
+
+	public static String uri = "mongodb+srv://eden:garden777@gardenblocks.hht9x.mongodb.net/";
+	public static MongoClient mongoClient = MongoClients.create(uri);
 
 
 	public static void main(String[] args) {
@@ -144,5 +152,11 @@ public class GardenOfEden {
 	public static void addBlock(Block newBlock) {
 		newBlock.mineBlock(req);
 		garden.add(newBlock);
+
+		MongoDatabase mongodb = mongoClient.getDatabase("Garden");
+		MongoCollection collection = mongodb.getCollection("blocks");
+		Document document = new Document(newBlock.prevHash, newBlock.getMerk());
+
+		collection.insertOne(document);
 	}
 }

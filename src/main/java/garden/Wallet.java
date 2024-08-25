@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//import javafx.scene.chart.LineChart.SortingPolicy;
-
-
 
 public class Wallet {
     public PrivateKey privateKey;

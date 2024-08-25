@@ -35,7 +35,7 @@ public class Block {
     }
 
     public void mineBlock(int difficulty) {
-        merkleRoot = StringUtil.getMerkleRoot(transactions);
+        this.merkleRoot = StringUtil.getMerkleRoot(transactions);
 		String req = StringUtil.getDifficultyString(difficulty);
 		while(!hash.substring(0, difficulty).equals(req)) { // make sure first x difficulty = target
 			this.nonce ++;
@@ -56,6 +56,10 @@ public class Block {
         transactions.add(transaction);
         System.out.println("Transaction added to the Garden!");
         return true;
+    }
+
+    public String getMerk(){
+        return merkleRoot;
     }
 
 }
