@@ -24,6 +24,9 @@ public class GardenOfEden {
 
 	public static String uri = "mongodb+srv://eden:garden777@gardenblocks.hht9x.mongodb.net/";
 	public static MongoClient mongoClient = MongoClients.create(uri);
+	public static MongoDatabase mongodb;
+	public static MongoCollection collection;
+	public static Document document = new Document("prevHash", "currentHash");;
 
 
 	public static void main(String[] args) {
@@ -76,6 +79,9 @@ public class GardenOfEden {
 
 		walletA.viewPastTransactions();
 		walletB.viewPastTransactions();
+
+		// once all the transactions are done, add the blocks to mongodb
+		collection.insertOne(document);
 	}
 
 	public static Boolean isChainValid(){
@@ -153,10 +159,8 @@ public class GardenOfEden {
 		newBlock.mineBlock(req);
 		garden.add(newBlock);
 
-		MongoDatabase mongodb = mongoClient.getDatabase("Garden");
-		MongoCollection collection = mongodb.getCollection("blocks");
-		Document document = new Document(newBlock.prevHash, newBlock.getMerk());
-
-		collection.insertOne(document);
+		mongodb = mongoClient.getDatabase("Garden");
+		collection = mongodb.getCollection("blocks");
+		//document.append(newBlock.prevHash, newBlock.getMerk());
 	}
 }

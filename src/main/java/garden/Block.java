@@ -36,6 +36,7 @@ public class Block {
 
     public void mineBlock(int difficulty) {
         this.merkleRoot = StringUtil.getMerkleRoot(transactions);
+        System.out.println("************************** " + merkleRoot);
 		String req = StringUtil.getDifficultyString(difficulty);
 		while(!hash.substring(0, difficulty).equals(req)) { // make sure first x difficulty = target
 			this.nonce ++;
