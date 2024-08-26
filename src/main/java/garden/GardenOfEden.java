@@ -161,6 +161,6 @@ public class GardenOfEden {
 
 		mongodb = mongoClient.getDatabase("Garden");
 		collection = mongodb.getCollection("blocks");
-		//document.append(newBlock.prevHash, newBlock.getMerk());
+		document.append(newBlock.prevHash, newBlock.hash);
 	}
 }
