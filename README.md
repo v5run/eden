@@ -14,6 +14,7 @@ This project, **Garden of Eden**, is a blockchain simulation built in Java that 
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
+- [Contact](#contact)
 
 ## Overview
 
@@ -108,3 +109,8 @@ Contributions are welcome! Please follow these steps:
 
 ## License
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+
+## Contact
+
+Varun Pathak - [@LinkedIn](https://www.linkedin.com/in/varun-pathak-869351252/) - pathav4@mcmaster.ca
