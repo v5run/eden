@@ -2,6 +2,7 @@ garden/TransactionInput.class
 garden/Transaction.class
 garden/Wallet.class
 garden/StringUtil.class
+garden/User.class
 garden/TransactionOutput.class
 garden/GardenOfEden.class
 garden/Block.class

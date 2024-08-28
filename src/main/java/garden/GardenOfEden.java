@@ -2,12 +2,17 @@ package garden;
 import java.util.*;
 import java.security.Security;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 
 
 public class GardenOfEden {
 
 	public static ArrayList<Block> garden = new ArrayList<Block>(); // blockchain -> "Garden of Eden"
-	public static int req = 7; // requirement/difficulty of finding the correct hash\
+	public static int req = 3; // requirement/difficulty of finding the correct hash\
 
 	public static Wallet walletA;
 	public static Wallet walletB;
@@ -16,6 +21,12 @@ public class GardenOfEden {
 
 	public static float minimumTransaction = 0.1f;
 	public static Transaction genesisTransaction;
+
+	public static String uri = "mongodb+srv://eden:garden777@gardenblocks.hht9x.mongodb.net/";
+	public static MongoClient mongoClient = MongoClients.create(uri);
+	public static MongoDatabase mongodb;
+	public static MongoCollection collection;
+	public static Document document = new Document("prevHash", "currentHash");;
 
 
 	public static void main(String[] args) {
@@ -68,6 +79,9 @@ public class GardenOfEden {
 
 		walletA.viewPastTransactions();
 		walletB.viewPastTransactions();
+
+		// once all the transactions are done, add the blocks to mongodb
+		collection.insertOne(document);
 	}
 
 	public static Boolean isChainValid(){
@@ -144,5 +158,9 @@ public class GardenOfEden {
 	public static void addBlock(Block newBlock) {
 		newBlock.mineBlock(req);
 		garden.add(newBlock);
+
+		mongodb = mongoClient.getDatabase("Garden");
+		collection = mongodb.getCollection("blocks");
+		document.append(newBlock.prevHash, newBlock.hash);
 	}
 }
